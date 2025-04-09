@@ -208,8 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 location.reload();
             });
         }
-        document.getElementById("kycBtn").addEventListener("click",(e)=>{
-        e.preventDefault();
+        document.getElementById("kycBtn").addEventListener("click",()=>{
+       // e.preventDefault();
         if(localStorage.getItem("KYC")=="Pending"){
         window.location.href="/auth/kyc";
         }
@@ -287,50 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
         function handleSearch(event) {
             event.preventDefault();
             window.location.href("/listing");
-            const searchInput = document.getElementById('searchInput');
-            const propertyType = document.getElementById('propertyType');
-            const searchButton = document.getElementById('searchButton');
-            
-            const searchTerm = searchInput.value.trim();
-            const selectedType = propertyType.value;
-            
-            if (!searchTerm) {
-                searchInput.focus();
-                return;
-            }
-
-            // Disable button and show loading state
-            searchButton.disabled = true;
-            const originalText = searchButton.innerHTML;
-            searchButton.innerHTML = '<span>Searching...</span>';
-
-            // Simulate search (replace with actual search logic)
-            setTimeout(() => {
-                console.log('Searching for:', searchTerm, 'Type:', selectedType);
-             //   window.location.href = `/properties?search=${encodeURIComponent(searchTerm)}&type=${encodeURIComponent(selectedType)}`;
-
-             fetch(`/properties?search=${encodeURIComponent(searchTerm)}&type=${encodeURIComponent(selectedType)}`).then((r)=>{
-                r.json().then((ans)=>{
-                    console.log(ans);
-                })
-             });
-                
-                // Reset button state (though page will likely reload)
-                searchButton.disabled = false;
-                searchButton.innerHTML = originalText;
-            }, 500);
-        }
-
-        // Add input validation and real-time feedback
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function(e) {
-            const searchButton = document.getElementById('searchButton');
-            if (e.target.value.trim()) {
-                searchButton.removeAttribute('disabled');
-            } else {
-                searchButton.setAttribute('disabled', 'true');
-            }
-        });
+          
     </script>
 
     <!-- Featured Properties (Page 2) -->
