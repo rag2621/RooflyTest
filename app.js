@@ -42,13 +42,19 @@ const generateToken = (user) => jwt.sign(
     { expiresIn: "7d" }
 );
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: 'uploads', // Cloudinary ke andar ek folder banayega
-      format: async (req, file) => 'png', // Image format define karein
-      public_id: (req, file) => file.originalname.split('.')[0] // File ka naam
-    }
-  });
+  cloudinary: cloudinary,
+  params: {
+    folder: 'uploads',
+    format: async (req, file) => {
+      const ext = file.originalname.split('.').pop().toLowerCase();
+      if (['jpg', 'jpeg', 'png'].includes(ext)) {
+        return ext;
+      }
+      return 'png'; // default format
+    },
+    public_id: (req, file) => file.originalname.split('.')[0]
+  }
+});
   
   const upload = multer({ storage: storage });
 
